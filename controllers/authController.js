@@ -41,9 +41,10 @@ exports.signUp = async (req, res) => {
     await user.save();
 
     // Generate JWT token
-    const token = jwt.encode({ userId: user.id }, secretKey);
+    const token = jwt.encode( { userId: user.id }, secretKey );
+    console.log("iserId",user.id  )
 
-    return res.status(200).send({ token });
+    return res.status(200).send({ token, userId: user.id });
   } catch (error) {
     console.error(error);
     return res.status(500).send({ errors: [{ msg: 'Server error' }] });
@@ -80,7 +81,7 @@ exports.signIn = async function (req, res) {
     // Generate JWT token
     const token = jwt.encode({ userId: user.id }, secretKey);
 
-    return res.status(200).send({ token });
+    return res.status(200).send({ token, userId: user.id });
   } catch (error) {
     console.error(error);
     return res.status(500).send({ errors: [{ msg: 'Server error' }] });

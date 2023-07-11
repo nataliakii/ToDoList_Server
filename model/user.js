@@ -14,6 +14,7 @@ const userSchema = {
     salt: String,
     hash: String,
   },
+  tasks: [{ type: Schema.Types.ObjectId, ref: 'Task' }] // Reference to the Task model
 };
 
 const User = model('User', userSchema);

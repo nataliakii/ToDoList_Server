@@ -4,7 +4,8 @@ const {
   signUp,
   signIn,
   requireAuth,
-} = require('../controllers/authController');
+} = require( '../controllers/authController' );
+const private=require('../controllers/private')
 
 const router = Router();
 
@@ -27,16 +28,12 @@ router.post(
   ],
   signIn,
 );
+router.get( '/tasks/:userId', requireAuth, private.fetchTasks );
+router.post( '/addtask', requireAuth, private.addTask );
+router.delete( '/tasks/:taskId', requireAuth, private.deleteTask );
+router.put( '/tasks/:taskId', requireAuth, private.editTask );
+router.patch( '/tasks/:taskId', requireAuth, private.toggleDone );
+//router.get('/pics',requireAuth, private.pics);
 
-router.get('/private', requireAuth, (req, res) => {
-  res.send('You are authorized to access this private path');
-});
-
-router.get('/notprivate', (req, res) => {
-  console.log(req.params);
-  res.send(
-    'You are not authorized to access this private path but its not private',
-  );
-});
 
 module.exports = router;
